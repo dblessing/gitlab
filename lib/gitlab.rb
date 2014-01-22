@@ -5,6 +5,7 @@ require 'gitlab/error'
 require 'gitlab/request'
 require 'gitlab/api'
 require 'gitlab/client'
+require 'gitlab/cli'
 
 module Gitlab
   extend Configuration
