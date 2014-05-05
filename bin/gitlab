@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-require 'gitlab'
+require_relative '../lib/gitlab'
 
 Gitlab::CLI.start

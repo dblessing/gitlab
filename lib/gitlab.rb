@@ -1,11 +1,11 @@
-require 'gitlab/version'
-require 'gitlab/objectified_hash'
-require 'gitlab/configuration'
-require 'gitlab/error'
-require 'gitlab/request'
-require 'gitlab/api'
-require 'gitlab/client'
-require 'gitlab/cli'
+require_relative './gitlab/version'
+require_relative './gitlab/objectified_hash'
+require_relative './gitlab/configuration'
+require_relative './gitlab/error'
+require_relative './gitlab/request'
+require_relative './gitlab/api'
+require_relative './gitlab/client'
+require_relative './gitlab/cli'
 
 module Gitlab
   extend Configuration
