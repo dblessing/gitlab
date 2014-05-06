@@ -22,4 +22,15 @@ describe Gitlab::CLI do
       it { should == @version_string }
     end
   end
+
+  describe "projects" do
+    subject { cli_action('projects') }
+
+    before do
+      stub_get("/projects", "projects")
+      @projects = Gitlab.projects
+    end
+
+    it { should == Gitlab::CLI.new.formattsed_projects(@projects) }
+  end
 end
