@@ -1,5 +1,6 @@
 require 'thor'
-# TODO: Find a way to only load the CLI/UI components when necessary
+
+require_relative '../gitlab'
 require_relative './ui'
 
 module Gitlab

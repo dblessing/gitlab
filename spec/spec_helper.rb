@@ -2,6 +2,7 @@ require 'rspec'
 require 'webmock/rspec'
 
 require File.expand_path('../../lib/gitlab', __FILE__)
+require File.expand_path('../../lib/gitlab/cli', __FILE__)
 
 def load_fixture(name)
   File.new(File.dirname(__FILE__) + "/fixtures/#{name}.json")

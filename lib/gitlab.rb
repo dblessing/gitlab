@@ -5,7 +5,6 @@ require_relative './gitlab/error'
 require_relative './gitlab/request'
 require_relative './gitlab/api'
 require_relative './gitlab/client'
-require_relative './gitlab/cli'
 
 module Gitlab
   extend Configuration
