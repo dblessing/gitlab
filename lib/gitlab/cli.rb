@@ -1,7 +1,7 @@
 require 'thor'
 
-require_relative '../gitlab'
-require_relative './ui'
+require 'gitlab'
+require 'gitlab/ui'
 
 module Gitlab
   class CLI < Thor
