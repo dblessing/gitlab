@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Gitlab::CLI do
+describe Gitlab::CLI::Commands do
   describe "version" do
     before { @version_string = "Gitlab gem version #{Gitlab::VERSION}\n" }
 
@@ -19,7 +19,7 @@ describe Gitlab::CLI do
 
     it "returns formatted projects" do
       expect(cli_action('projects'))
-          .to be == Gitlab::CLI.new.formatted_projects(@projects)
+      .to be == Gitlab::CLI::Commands.new.formatted_projects(@projects)
     end
   end
 end

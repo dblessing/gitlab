@@ -3,7 +3,7 @@ require 'thor/shell/color'
 
 ## Concepts borrowed from Vagrant UI class.
 
-module Gitlab
+class Gitlab::CLI
   module UI
     class Basic
       def initialize
