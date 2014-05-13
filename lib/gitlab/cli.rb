@@ -1,5 +1,4 @@
 require 'thor'
-
 require 'gitlab'
 
 module Gitlab
@@ -12,6 +11,18 @@ module Gitlab
       Gitlab::CLI::Commands.start(*args)
     end
 
-    # TODO: Parse config file here?
+    def self.load_config(source_path)
+      source = File.expand_path(source_path)
+      if source.is_a?(String)
+        raise "Config file #{source} not found" unless File.exist?(source)
+
+        _config = YAML.load_file(source)
+
+        Gitlab.configure do |config|
+          config.endpoint       = _config['endpoint']
+          config.private_token  = _config['private_token']
+        end
+      end
+    end
   end
 end

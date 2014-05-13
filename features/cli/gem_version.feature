@@ -7,10 +7,6 @@ Feature: Gem version
     Given I issue the full version command
     Then the output should contain the version string
 
-  Scenario: Short flag version command
-    Given I issue the short flag version command
-    Then the output should contain the version string
-
   Scenario: Long flag version command
     Given I issue the long flag version command
     Then the output should contain the version string

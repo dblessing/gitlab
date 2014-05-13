@@ -4,29 +4,16 @@ class Gitlab::CLI::Commands < Thor
   require 'gitlab/cli/ui'
   Dir[File.expand_path('../commands/*.rb', __FILE__)].each { |f| require f }
 
-  # Helper methods
-  no_commands do
-    def ui
-      @ui ||= if STDOUT.tty?
-                Gitlab::CLI::UI::Color.new
-              else
-                Gitlab::CLI::UI::Basic.new
-              end
-    end
+  class_option :config_file,
+               :default => '~/.gitlab.yml',
+               :type    => :string,
+               :banner  => 'Path to yaml config file'
 
-    # TODO: This may be better placed somewhere else.
-    def formatted_projects(projects)
-      formatted = ""
-      projects.each do |p|
-        formatted << "%s:\t%s\n" % [p.id, p.path]
-      end
-
-      formatted
-    end
-  end
+  class_option :trace,
+               :type    => :boolean,
+               :banner  => 'Output stack traces'
 
   # Commands
-  map "-v" => "version"
   map "--version" => "version"
 
   desc "version", "print version"
@@ -46,6 +33,8 @@ class Gitlab::CLI::Commands < Thor
   option :pager, :desc => "Turn ON pager output one time for this command",
          :required => false, :type => :boolean
   def projects
+    config
+
     if options['pager'] && options['nopager']
       raise "Cannot specify --nopager and --pager options together. Choose one."
     end
@@ -55,7 +44,7 @@ class Gitlab::CLI::Commands < Thor
 
   rescue Exception => e
     ui.error "Unable to get projects"
-    ui.handle_error e
+    ui.handle_error(e, options[:trace])
 
   else
     # TODO: Set new config options for CLI
@@ -66,5 +55,30 @@ class Gitlab::CLI::Commands < Thor
     # else
     ui.info formatted_projects(projects)
     # end
+  end
+
+  # Helper methods
+  no_commands do
+    def config
+      Gitlab::CLI.load_config(options[:config_file])
+    end
+
+    def ui
+      @ui ||= if STDOUT.tty?
+                Gitlab::CLI::UI::Color.new
+              else
+                Gitlab::CLI::UI::Basic.new
+              end
+    end
+
+    # TODO: This may be better placed somewhere else.
+    def formatted_projects(projects)
+      formatted = ""
+      projects.each do |p|
+        formatted << "%s:\t%s\n" % [p.id, p.path]
+      end
+
+      formatted
+    end
   end
 end

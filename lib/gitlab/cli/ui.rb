@@ -30,10 +30,10 @@ class Gitlab::CLI
         @shell.yes? message, color
       end
 
-      def handle_error(e, verbose=false)
+      def handle_error(e, trace=false)
         error e.message
 
-        if verbose
+        if trace
           e.backtrace.each do |line|
             error line, :white
           end

@@ -5,10 +5,6 @@ class Spinach::Features::GemVersion < Spinach::FeatureSteps
     @output = cli_action('version')
   end
 
-  step 'I issue the short flag version command' do
-    @output = cli_action('-v')
-  end
-
   step 'I issue the long flag version command' do
     @output = cli_action('--version')
   end
